@@ -14,6 +14,9 @@ const ImageCard = ({ item }) => {
         navigation.navigate("Display", { item });
     };
 
+
+
+
     return (
         <TouchableWithoutFeedback>
             <View

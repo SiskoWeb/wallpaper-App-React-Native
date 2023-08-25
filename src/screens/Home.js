@@ -8,8 +8,12 @@ import { FlashList } from '@shopify/flash-list';
 import Card from '../components/Card';
 import ImageCard from '../components/Card';
 import Albums from '../../hooks/useScrollToTop'
+import { useDispatch, useSelector } from 'react-redux';
 const Home = () => {
-    const [wData, setWData] = useState(DATA); // Initialize with the complete data
+
+
+    const { wallpapers } = useSelector((state) => state.wallpaper);
+    const [wData, setWData] = useState(wallpapers); // Initialize with the complete data
     const [refreshing, setRefreshing] = useState(false);
     const [visibleData, setVisibleData] = useState(wData.slice(0, initialLoadCount));
     const itemsPerPage = 10; // Number of items per "page"
@@ -47,7 +51,7 @@ const Home = () => {
         return (
             <View style={styles.notFoundContainer}>
                 <Text style={styles.notFoundText}>Opps... ! </Text>
-                <Text style={styles.notFoundText}> Not found the NFT</Text>
+                <Text style={styles.notFoundText}> Not found Wallpaper</Text>
             </View>
         );
     };
@@ -94,6 +98,9 @@ const Home = () => {
                     renderItem={({ item, index }) => {
                         return <ImageCard key={index} item={item} />;
                     }}
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                    }
                 />}
             </View>
 
@@ -114,7 +121,7 @@ const styles = StyleSheet.create({
         paddingVertical: SIZES.small,
     },
     notFoundText: {
-        color: COLORS.black,
+        color: COLORS.white,
         fontFamily: FONTS.bold,
         fontSize: SIZES.xLarge,
     },

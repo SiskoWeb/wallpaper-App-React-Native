@@ -1,29 +1,75 @@
-import { View, Text, StatusBar, StyleSheet, SafeAreaView, PermissionsAndroid } from 'react-native'
-import React, { useState, useRef } from 'react'
+import { View, Text, ToastAndroid, StyleSheet, SafeAreaView, PermissionsAndroid } from 'react-native'
+import React, { useState, useRef, useEffect } from 'react'
 import { COLORS, SIZES, FONTS, DATA } from '../../constants/'
-import img from '../../assets/images/nft01.jpg'
+
 import { ImageBackground } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useRoute } from "@react-navigation/native";
 import Button from '../components/Button'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+// import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
+// import WallPaperManager from '@ajaybhatia/react-native-wallpaper-manager';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { deleteFromFavourite, setFavourite } from '../../redux/wallpaperSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
-import WallPaperManager from '@ajaybhatia/react-native-wallpaper-manager';
+
 const WallDetails = ({ navigation }) => {
 
+
+
+
+    const FavouriteData = useSelector((state) => state.wallpaper.Favourite);
 
     {/* get data passed from route  */ }
     const route = useRoute();
     const item = route.params.item;
 
+    // check if this wallpaper already in favourte
+    const [isExist, setIsExist] = useState(FavouriteData.some(obj =>
+        obj.id === item.id
+    ));
+    const dispatch = useDispatch()
 
-    const isFavorte = () => {
-        return false
+
+
+    // add wallpaper to favorate page
+    const setToFavorte = async () => {
+
+
+        //if wall not exist in favoute add it using redux
+        if (!isExist) {
+            dispatch(setFavourite(item))
+            setIsExist(true)
+            ToastAndroid.showWithGravity(
+                'added',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+            )
+        }
+        //if wall  exist in favoute remove it using redux
+        else {
+            dispatch(deleteFromFavourite(item))
+            setIsExist(false)
+            ToastAndroid.showWithGravity(
+                'removed',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+            );
+        }
+
+
     }
 
 
     const setWallpaperfun = () => {
-        WallPaperManager.setWallpaper({ uri: img, screen: 'home' }, res => console.log(res));
+        // ManageWallpaper.setWallpaper(
+        //     {
+        //         uri: 'https://i.pinimg.com/originals/76/5e/1d/765e1dc8cb1cc115fb3b0b39a895fdeb.jpg',
+        //     },
+        //     callback,
+        //     TYPE.HOME,
+        // );
     };
 
 
@@ -65,6 +111,9 @@ const WallDetails = ({ navigation }) => {
     };
 
 
+    const clearData = () => {
+        AsyncStorage.clear();
+    }
 
 
 
@@ -87,7 +136,7 @@ const WallDetails = ({ navigation }) => {
                 {/*  Button download*/}
                 <View style={styles.btnsContainer}>
                     <Button
-                        pressHandler={checkPermission}
+                        pressHandler={clearData}
                         stylesButton={styles.btnDownload}
                         Icon={<Ionicons name='ios-chevron-down' size={40} color={COLORS.white} />}
                     />
@@ -103,9 +152,9 @@ const WallDetails = ({ navigation }) => {
 
                     {/*  Button add to favorte*/}
                     <Button
-                        pressHandler={setWallpaperfun}
+                        pressHandler={setToFavorte}
                         stylesButton={styles.btnFavort}
-                        Icon={<Ionicons name='ios-heart' size={40} color={isFavorte() ? 'red' : 'grey'} />}
+                        Icon={<Ionicons name='ios-heart' size={40} color={isExist ? 'red' : 'grey'} />}
                     />
                 </View>
             </ImageBackground>

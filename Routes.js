@@ -3,9 +3,11 @@ import React from "react";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Main from "./src/screens/Main";
+
 import TabNavigator from "./TabNavigation";
 import WallDetails from "./src/screens/WallDetails";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +26,7 @@ const Routes = () => {
 
     return (
         <>
+
             <StatusBar style="light" animated={true} />
             <NavigationContainer>
                 <Stack.Navigator>
@@ -38,6 +41,7 @@ const Routes = () => {
                         component={WallDetails} />
                 </Stack.Navigator>
             </NavigationContainer>
+
         </>
     );
 }

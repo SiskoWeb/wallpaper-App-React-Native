@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@ajaybhatia/react-native-wallpaper-manager": "^0.0.3",
+    "@react-native-async-storage/async-storage": "^1.19.3",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
+    "@reduxjs/toolkit": "^1.9.5",
     "@shopify/flash-list": "^1.5.0",
     "expo": "~49.0.7",
     "expo-dev-client": "~2.4.8",
@@ -27,7 +29,8 @@
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
-    "react-native-vector-icons": "^10.0.0"
+    "react-native-vector-icons": "^10.0.0",
+    "react-redux": "^8.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
