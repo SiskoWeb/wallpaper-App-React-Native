@@ -17,7 +17,7 @@ const Favourite = () => {
 
 
 
-
+  //when user refrech get data  again
   const onRefresh = () => {
     setRefreshing(true);
     setWDFavourite(FavouriteData); // Refresh visible data
@@ -27,27 +27,17 @@ const Favourite = () => {
 
 
 
-
+  //  every time  state redux called favoute update , update favoutre page
   useEffect(() => {
     setWDFavourite(FavouriteData)
   }, [FavouriteData])
 
-  const btns = () => {
 
-    setWDFavourite(FavouriteData);
-    alert('loading')
-  }
   const NotFoundNFT = () => {
     return (
       <View style={styles.notFoundContainer}>
         <Text style={styles.notFoundText}>Opps... ! </Text>
         <Text style={styles.notFoundText}> No Favourite Wallpaper</Text>
-        <Button
-          pressHandler={btns}
-
-          title='SET AS'
-
-        />
       </View>
     );
   };

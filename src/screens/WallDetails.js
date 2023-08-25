@@ -18,7 +18,7 @@ const WallDetails = ({ navigation }) => {
 
 
 
-
+    const dispatch = useDispatch()
     const FavouriteData = useSelector((state) => state.wallpaper.Favourite);
 
     {/* get data passed from route  */ }
@@ -29,13 +29,13 @@ const WallDetails = ({ navigation }) => {
     const [isExist, setIsExist] = useState(FavouriteData.some(obj =>
         obj.id === item.id
     ));
-    const dispatch = useDispatch()
+
+
 
 
 
     // add wallpaper to favorate page
     const setToFavorte = async () => {
-
 
         //if wall not exist in favoute add it using redux
         if (!isExist) {
@@ -57,7 +57,6 @@ const WallDetails = ({ navigation }) => {
                 ToastAndroid.CENTER,
             );
         }
-
 
     }
 
