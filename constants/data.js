@@ -1,4 +1,5 @@
-import nft01 from "../assets/images/nft01.jpg";
+const nft01 = 'http://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D&w=1000&q=80';
+const nft011 = 'https://w0.peakpx.com/wallpaper/899/731/HD-wallpaper-anime-boys-anime-in-naruto-anime.jpg';
 import nft02 from "../assets/images/nft02.jpg";
 import nft03 from "../assets/images/nft03.jpg";
 import nft04 from "../assets/images/nft04.jpg";
@@ -20,7 +21,7 @@ export const DATA = [
   {
     id: "2",
     name: "Great Ape #6494",
-    image: nft02,
+    image: nft011,
   },
   {
     id: "3",
@@ -112,356 +113,361 @@ export const DATA = [
     image: nft06,
 
   },
-  {
-    id: "72",
-    name: "Cryptopunk #470",
-    image: nft07,
+  // {
+  //   id: "72",
+  //   name: "Cryptopunk #470",
+  //   image: nft07,
 
-  },
-  {
-    id: "82",
-    name: "Great Ape #494",
-    image: nft08,
-  },
-  {
-    id: "29",
-    name: "Great Ape #6434",
-    image: nft09,
-  },
-  {
-    id: "102",
-    name: "Kodala Agent",
-    image: nft10,
+  // },
+  // {
+  //   id: "82",
+  //   name: "Great Ape #494",
+  //   image: nft08,
+  // },
+  // {
+  //   id: "29",
+  //   name: "Great Ape #6434",
+  //   image: nft09,
+  // },
+  // {
+  //   id: "102",
+  //   name: "Kodala Agent",
+  //   image: nft10,
 
-  },
-  {
-    id: "121",
-    name: "Kodala Agent",
-    image: nft11,
-  },
+  // },
+  // {
+  //   id: "121",
+  //   name: "Kodala Agent",
+  //   image: nft11,
+  // },
 
-  {
-    id: "122",
-    name: "Koala Anent",
-    image: nft12,
-  },
-  {
-    id: "312",
-    name: "Meebit #2325",
-    image: nft03,
+  // {
+  //   id: "122",
+  //   name: "Koala Anent",
+  //   image: nft12,
+  // },
+  // {
+  //   id: "312",
+  //   name: "Meebit #2325",
+  //   image: nft03,
 
-  },
-  {
-    id: "43",
-    name: "Kodala Agent",
-    image: nft04,
+  // },
+  // {
+  //   id: "43",
+  //   name: "Kodala Agent",
+  //   image: nft04,
 
-  },
-  {
-    id: "35",
-    name: "Meebit #2375",
-    image: nft05,
-  },
-  {
-    id: "36",
-    name: "Cryptopunk #4740",
-    image: nft06,
+  // },
+  // {
+  //   id: "35",
+  //   name: "Meebit #2375",
+  //   image: nft05,
+  // },
+  // {
+  //   id: "36",
+  //   name: "Cryptopunk #4740",
+  //   image: nft06,
 
-  },
-  {
-    id: "73",
-    name: "Cryptopunk #470",
-    image: nft07,
+  // },
+  // {
+  //   id: "73",
+  //   name: "Cryptopunk #470",
+  //   image: nft07,
 
-  },
-  {
-    id: "38",
-    name: "Great Ape #494",
-    image: nft08,
-  },
-  {
-    id: "39",
-    name: "Great Ape #6434",
-    image: nft09,
-  },
-  {
-    id: "130",
-    name: "Kodala Agent",
-    image: nft10,
+  // },
+  // {
+  //   id: "38",
+  //   name: "Great Ape #494",
+  //   image: nft08,
+  // },
+  // {
+  //   id: "39",
+  //   name: "Great Ape #6434",
+  //   image: nft09,
+  // },
+  // {
+  //   id: "130",
+  //   name: "Kodala Agent",
+  //   image: nft10,
 
-  },
-  {
-    id: "131",
-    name: "Kodala Agent",
-    image: nft11,
-  },
+  // },
+  // {
+  //   id: "131",
+  //   name: "Kodala Agent",
+  //   image: nft11,
+  // },
 
-  {
-    id: "132",
-    name: "Koala Anent",
-    image: nft12,
-  },
+  // {
+  //   id: "132",
+  //   name: "Koala Anent",
+  //   image: nft12,
+  // },
 
-  {
-    id: "213",
-    name: "Cryptopunk #240",
-    image: nft01,
-  },
-  {
-    id: "232",
-    name: "Great Ape #6494",
-    image: nft02,
-  },
-  {
-    id: "332",
-    name: "Meebit #2325",
-    image: nft03,
+  // {
+  //   id: "213",
+  //   name: "Cryptopunk #240",
+  //   image: nft01,
+  // },
+  // {
+  //   id: "232",
+  //   name: "Great Ape #6494",
+  //   image: nft02,
+  // },
+  // {
+  //   id: "332",
+  //   name: "Meebit #2325",
+  //   image: nft03,
 
-  },
-  {
-    id: "3432",
-    name: "Kodala Agent",
-    image: nft04,
+  // },
+  // {
+  //   id: "3432",
+  //   name: "Kodala Agent",
+  //   image: nft04,
 
-  },
-  {
-    id: "532",
-    name: "Meebit #2375",
-    image: nft05,
-  },
-  {
-    id: "623",
-    name: "Cryptopunk #4740",
-    image: nft06,
+  // },
+  // {
+  //   id: "532",
+  //   name: "Meebit #2375",
+  //   image: nft05,
+  // },
+  // {
+  //   id: "623",
+  //   name: "Cryptopunk #4740",
+  //   image: nft06,
 
-  },
-  {
-    id: "372",
-    name: "Cryptopunk #470",
-    image: nft07,
+  // },
+  // {
+  //   id: "372",
+  //   name: "Cryptopunk #470",
+  //   image: nft07,
 
-  },
-  {
-    id: "382",
-    name: "Great Ape #494",
-    image: nft08,
-  },
-  {
-    id: "293",
-    name: "Great Ape #6434",
-    image: nft09,
-  },
-  {
-    id: "1302",
-    name: "Kodala Agent",
-    image: nft10,
+  // },
+  // {
+  //   id: "382",
+  //   name: "Great Ape #494",
+  //   image: nft08,
+  // },
+  // {
+  //   id: "293",
+  //   name: "Great Ape #6434",
+  //   image: nft09,
+  // },
+  // {
+  //   id: "1302",
+  //   name: "Kodala Agent",
+  //   image: nft10,
 
-  },
-  {
-    id: "1321",
-    name: "Kodala Agent",
-    image: nft11,
-  },
+  // },
+  // {
+  //   id: "1321",
+  //   name: "Kodala Agent",
+  //   image: nft11,
+  // },
 
-  {
-    id: "1232",
-    name: "Koala Anent",
-    image: nft12,
-  },
+  // {
+  //   id: "1232",
+  //   name: "Koala Anent",
+  //   image: nft12,
+  // },
 
-  {
-    id: "12",
-    name: "Koala Anent",
-    image: nft12,
-  },
+  // {
+  //   id: "12",
+  //   name: "Koala Anent",
+  //   image: nft12,
+  // },
 
-  {
-    id: "21",
-    name: "Cryptopunk #240",
-    image: nft01,
-  },
-  {
-    id: "22",
-    name: "Great Ape #6494",
-    image: nft02,
-  },
-  {
-    id: "32",
-    name: "Meebit #2325",
-    image: nft03,
+  // {
+  //   id: "21",
+  //   name: "Cryptopunk #240",
+  //   image: nft01,
+  // },
+  // {
+  //   id: "22",
+  //   name: "Great Ape #6494",
+  //   image: nft02,
+  // },
+  // {
+  //   id: "32",
+  //   name: "Meebit #2325",
+  //   image: nft03,
 
-  },
-  {
-    id: "42",
-    name: "Kodala Agent",
-    image: nft04,
+  // },
+  // {
+  //   id: "42",
+  //   name: "Kodala Agent",
+  //   image: nft04,
 
-  },
-  {
-    id: "52",
-    name: "Meebit #2375",
-    image: nft05,
-  },
-  {
-    id: "62",
-    name: "Cryptopunk #4740",
-    image: nft06,
+  // },
+  // {
+  //   id: "52",
+  //   name: "Meebit #2375",
+  //   image: nft05,
+  // },
+  // {
+  //   id: "62",
+  //   name: "Cryptopunk #4740",
+  //   image: nft06,
 
-  },
-  {
-    id: "72",
-    name: "Cryptopunk #470",
-    image: nft07,
+  // },
+  // {
+  //   id: "72",
+  //   name: "Cryptopunk #470",
+  //   image: nft07,
 
-  },
-  {
-    id: "852",
-    name: "Great Ape #494",
-    image: nft08,
-  },
-  {
-    id: "259",
-    name: "Great Ape #6434",
-    image: nft09,
-  },
-  {
-    id: "1052",
-    name: "Kodala Agent",
-    image: nft10,
+  // },
+  // {
+  //   id: "852",
+  //   name: "Great Ape #494",
+  //   image: nft08,
+  // },
+  // {
+  //   id: "259",
+  //   name: "Great Ape #6434",
+  //   image: nft09,
+  // },
+  // {
+  //   id: "1052",
+  //   name: "Kodala Agent",
+  //   image: nft10,
 
-  },
-  {
-    id: "1521",
-    name: "Kodala Agent",
-    image: nft11,
-  },
+  // },
+  // {
+  //   id: "1521",
+  //   name: "Kodala Agent",
+  //   image: nft11,
+  // },
 
-  {
-    id: "1252",
-    name: "Koala Anent",
-    image: nft12,
-  },
-  {
-    id: "3152",
-    name: "Meebit #2325",
-    image: nft03,
+  // {
+  //   id: "1252",
+  //   name: "Koala Anent",
+  //   image: nft12,
+  // },
+  // {
+  //   id: "3152",
+  //   name: "Meebit #2325",
+  //   image: nft03,
 
-  },
-  {
-    id: "453",
-    name: "Kodala Agent",
-    image: nft04,
+  // },
+  // {
+  //   id: "453",
+  //   name: "Kodala Agent",
+  //   image: nft04,
 
-  },
-  {
-    id: "355",
-    name: "Meebit #2375",
-    image: nft05,
-  },
-  {
-    id: "356",
-    name: "Cryptopunk #4740",
-    image: nft06,
+  // },
+  // {
+  //   id: "355",
+  //   name: "Meebit #2375",
+  //   image: nft05,
+  // },
+  // {
+  //   id: "356",
+  //   name: "Cryptopunk #4740",
+  //   image: nft06,
 
-  },
-  {
-    id: "735",
-    name: "Cryptopunk #470",
-    image: nft07,
+  // },
+  // {
+  //   id: "735",
+  //   name: "Cryptopunk #470",
+  //   image: nft07,
 
-  },
-  {
-    id: "358",
-    name: "Great Ape #494",
-    image: nft08,
-  },
-  {
-    id: "359",
-    name: "Great Ape #6434",
-    image: nft09,
-  },
-  {
-    id: "1530",
-    name: "Kodala Agent",
-    image: nft10,
+  // },
+  // {
+  //   id: "358",
+  //   name: "Great Ape #494",
+  //   image: nft08,
+  // },
+  // {
+  //   id: "359",
+  //   name: "Great Ape #6434",
+  //   image: nft09,
+  // },
+  // {
+  //   id: "1530",
+  //   name: "Kodala Agent",
+  //   image: nft10,
 
-  },
-  {
-    id: "1531",
-    name: "Kodala Agent",
-    image: nft11,
-  },
+  // },
+  // {
+  //   id: "1531",
+  //   name: "Kodala Agent",
+  //   image: nft11,
+  // },
 
-  {
-    id: "1532",
-    name: "Koala Anent",
-    image: nft12,
-  },
+  // {
+  //   id: "1532",
+  //   name: "Koala Anent",
+  //   image: nft12,
+  // },
 
-  {
-    id: "2513",
-    name: "Cryptopunk #240",
-    image: nft01,
-  },
-  {
-    id: "2352",
-    name: "Great Ape #6494",
-    image: nft02,
-  },
-  {
-    id: "3352",
-    name: "Meebit #2325",
-    image: nft03,
+  // {
+  //   id: "2513",
+  //   name: "Cryptopunk #240",
+  //   image: nft01,
+  // },
+  // {
+  //   id: "2352",
+  //   name: "Great Ape #6494",
+  //   image: nft02,
+  // },
+  // {
+  //   id: "3352",
+  //   name: "Meebit #2325",
+  //   image: nft03,
 
-  },
-  {
-    id: "34352",
-    name: "Kodala Agent",
-    image: nft04,
+  // },
+  // {
+  //   id: "34352",
+  //   name: "Kodala Agent",
+  //   image: nft04,
 
-  },
-  {
-    id: "5532",
-    name: "Meebit #2375",
-    image: nft05,
-  },
-  {
-    id: "6523",
-    name: "Cryptopunk #4740",
-    image: nft06,
+  // },
+  // {
+  //   id: "5532",
+  //   name: "Meebit #2375",
+  //   image: nft05,
+  // },
+  // {
+  //   id: "6523",
+  //   name: "Cryptopunk #4740",
+  //   image: nft06,
 
-  },
-  {
-    id: "3752",
-    name: "Cryptopunk #470",
-    image: nft07,
+  // },
+  // {
+  //   id: "3752",
+  //   name: "Cryptopunk #470",
+  //   image: nft07,
 
-  },
-  {
-    id: "3852",
-    name: "Great Ape #494",
-    image: nft08,
-  },
-  {
-    id: "2953",
-    name: "Great Ape #6434",
-    image: nft09,
-  },
-  {
-    id: "13402",
-    name: "Kodala Agent",
-    image: nft10,
+  // },
+  // {
+  //   id: "3852",
+  //   name: "Great Ape #494",
+  //   image: nft08,
+  // },
+  // {
+  //   id: "2953",
+  //   name: "Great Ape #6434",
+  //   image: nft09,
+  // },
+  // {
+  //   id: "13402",
+  //   name: "Kodala Agent",
+  //   image: nft10,
 
-  },
-  {
-    id: "133421",
-    name: "Kodala Agent",
-    image: nft11,
-  },
+  // },
+  // {
+  //   id: "133421",
+  //   name: "Kodala Agent",
+  //   image: nft11,
+  // },
 
-  {
-    id: "21232",
-    name: "Koala Anent",
-    image: nft12,
-  },
+  // {
+  //   id: "21232",
+  //   name: "Koala Anent",
+  //   image: nft12,
+  // },
 ];
+
+
+export const ADS = {
+
+}

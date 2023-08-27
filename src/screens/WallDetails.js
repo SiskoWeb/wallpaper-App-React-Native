@@ -1,30 +1,28 @@
-import { View, Text, ToastAndroid, StyleSheet, SafeAreaView, PermissionsAndroid } from 'react-native'
+import { View, Text, ToastAndroid, StyleSheet, SafeAreaView, PermissionsAndroid, CameraRoll } from 'react-native'
 import React, { useState, useRef, useEffect } from 'react'
 import { COLORS, SIZES, FONTS, DATA } from '../../constants/'
-
+import * as FileSystem from 'expo-file-system';
 import { ImageBackground } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useRoute } from "@react-navigation/native";
 import Button from '../components/Button'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-// import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
-// import WallPaperManager from '@ajaybhatia/react-native-wallpaper-manager';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { deleteFromFavourite, setFavourite } from '../../redux/wallpaperSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { shareAsync } from 'expo-sharing';
+import * as MediaLibrary from "expo-media-library";
+import { ActivityIndicator } from 'react-native';
+
 
 
 const WallDetails = ({ navigation }) => {
 
-
-
     const dispatch = useDispatch()
     const FavouriteData = useSelector((state) => state.wallpaper.Favourite);
-
+    const [loading, setLoading] = useState(false);
     {/* get data passed from route  */ }
     const route = useRoute();
     const item = route.params.item;
-
     // check if this wallpaper already in favourte
     const [isExist, setIsExist] = useState(FavouriteData.some(obj =>
         obj.id === item.id
@@ -32,11 +30,8 @@ const WallDetails = ({ navigation }) => {
 
 
 
-
-
     // add wallpaper to favorate page
     const setToFavorte = async () => {
-
         //if wall not exist in favoute add it using redux
         if (!isExist) {
             dispatch(setFavourite(item))
@@ -61,58 +56,44 @@ const WallDetails = ({ navigation }) => {
     }
 
 
-    const setWallpaperfun = () => {
-        // ManageWallpaper.setWallpaper(
-        //     {
-        //         uri: 'https://i.pinimg.com/originals/76/5e/1d/765e1dc8cb1cc115fb3b0b39a895fdeb.jpg',
-        //     },
-        //     callback,
-        //     TYPE.HOME,
-        // );
+
+    const downloadFromUrl = async () => {
+        setLoading(true)
+        const filename = "anime.jpg";
+        const result = await FileSystem.downloadAsync(
+            'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D&w=1000&q=80',
+            FileSystem.documentDirectory + filename
+        );
+        await save(result.uri, filename, result.headers["Content-Type"]);
+        setLoading(false)
     };
 
 
-    const checkPermission = async () => {
-        // Function to check the platform
-        // If iOS then start downloading
-        // If Android then ask for permission
-        if (Platform.OS === 'ios') {
-            downloadImage();
+
+
+
+    const save = async (fileUri, filename, mimetype) => {
+        if (Platform.OS === "android") {
+            const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+            if (permissions.granted) {
+                // const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
+                // await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, filename, mimetype)
+                //     .then(async (uri) => {
+
+                //         await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 });
+                //     })
+                //     .catch(e => console.log(e));
+                const asset = await MediaLibrary.createAssetAsync(fileUri)
+                await MediaLibrary.createAlbumAsync("Download", asset, false)
+
+            } else {
+                shareAsync(uri);
+            }
         } else {
-            try {
-
-                const granted = await PermissionsAndroid.request(
-                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-                    {
-                        title: 'Storage Permission Required',
-                        message:
-                            'App needs access to your storage to download Photos',
-                        buttonNeutral: 'Ask Me Later',
-                        buttonNegative: 'Cancel',
-                        buttonPositive: 'OK',
-                    }
-                );
-
-                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                    // Once user grant the permission start downloading
-                    console.log('Storage Permission Granted.');
-                    downloadImage();
-                } else {
-                    // If permission denied then show alert
-                    alert('Storage Permission Not Granted');
-                }
-            }
-            catch (err) {
-                // To handle permission related exception
-                console.warn(err);
-            }
+            shareAsync(uri);
         }
+
     };
-
-
-    const clearData = () => {
-        AsyncStorage.clear();
-    }
 
 
 
@@ -120,7 +101,18 @@ const WallDetails = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}  >
 
-            <ImageBackground source={item.image} resizeMode="cover" style={styles.image}>
+            {loading ? (
+                <View className='z-50 flex-1 justify-center items-center bg-slate-500 opacity-70 w-full h-full absolute'>
+                    <ActivityIndicator
+                        size="large"
+
+                        color="blue"
+                    />
+                    <Text>Loading...</Text>
+                </View>
+            ) : null}
+
+            <ImageBackground source={{ uri: item.image, isStatic: true }} resizeMode="cover" style={styles.image}>
 
                 {/*  Button Back*/}
                 <View style={{ paddingTop: wp("5%"), paddingLeft: wp("2%") }}>
@@ -135,14 +127,14 @@ const WallDetails = ({ navigation }) => {
                 {/*  Button download*/}
                 <View style={styles.btnsContainer}>
                     <Button
-                        pressHandler={clearData}
+                        pressHandler={downloadFromUrl}
                         stylesButton={styles.btnDownload}
                         Icon={<Ionicons name='ios-chevron-down' size={40} color={COLORS.white} />}
                     />
 
                     {/*  Button set wallpaper*/}
                     <Button
-                        pressHandler={setWallpaperfun}
+                        // pressHandler={setWallpaperfun}
                         stylesText={styles.stylesText}
                         title='SET AS'
                         stylesButton={styles.btnSetAs}
