@@ -1,11 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { DATA } from '../constants/'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import useLocalStorage from "../hooks/useLocalStorage";
-// get wallpapers from DATA
-// check if there is wallpapers in favorte storage
-// if not add empty array
-// add
+
+
+
+// const findNotes = async () => {
+//     const result = await AsyncStorage.getItem('notes');
+//     if (result !== null) setNotes(JSON.parse(result));
+//     else {
+//         return []
+//     }
+// };
+// const writeItemToStorage = async () => {
+//     await findNotes()
+// };
 
 const initialState = {
     wallpapers: [],
@@ -16,12 +23,15 @@ const initialState = {
 const wallpaperSlice = createSlice({
     name: "wallpaper",
     initialState: initialState,
+
     reducers: {
         setWallpapers(state, action) {
             state.wallpapers = action.payload
         },
         setFavourite(state, action) {
             state.Favourite = [...state.Favourite, action.payload]
+            const jsonValue = JSON.stringify(state.Favourite);
+            AsyncStorage.setItem('notes', jsonValue);
         },
         deleteFromFavourite(state, action) {
             state.Favourite = state.Favourite.filter(i => i.id !== action.payload.id)
@@ -30,5 +40,5 @@ const wallpaperSlice = createSlice({
     }
 })
 // Action creators are generated for each case reducer function
-export const { setFavourite, setWallpapers ,deleteFromFavourite} = wallpaperSlice.actions
+export const { setFavourite, setWallpapers, deleteFromFavourite } = wallpaperSlice.actions
 export default wallpaperSlice.reducer

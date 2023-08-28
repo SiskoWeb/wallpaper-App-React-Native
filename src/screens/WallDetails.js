@@ -12,13 +12,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { shareAsync } from 'expo-sharing';
 import * as MediaLibrary from "expo-media-library";
 import { ActivityIndicator } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const WallDetails = ({ navigation }) => {
 
+
+
+
     const dispatch = useDispatch()
     const FavouriteData = useSelector((state) => state.wallpaper.Favourite);
+
     const [loading, setLoading] = useState(false);
     {/* get data passed from route  */ }
     const route = useRoute();
@@ -32,10 +36,14 @@ const WallDetails = ({ navigation }) => {
 
     // add wallpaper to favorate page
     const setToFavorte = async () => {
+
+
+
         //if wall not exist in favoute add it using redux
         if (!isExist) {
             dispatch(setFavourite(item))
             setIsExist(true)
+
             ToastAndroid.showWithGravity(
                 'added',
                 ToastAndroid.SHORT,
@@ -59,12 +67,16 @@ const WallDetails = ({ navigation }) => {
 
     const downloadFromUrl = async () => {
         setLoading(true)
-        const filename = "anime.jpg";
+
+        const filename = `wallpaper${Math.random()}.jpg`;
         const result = await FileSystem.downloadAsync(
-            'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D&w=1000&q=80',
-            FileSystem.documentDirectory + filename
+            item.image,
+            FileSystem.documentDirectory + filename,
+
         );
-        await save(result.uri, filename, result.headers["Content-Type"]);
+    
+
+        await save(result.uri, filename, "Content-Type:image/*");
         setLoading(false)
     };
 
@@ -72,19 +84,34 @@ const WallDetails = ({ navigation }) => {
 
 
 
-    const save = async (fileUri, filename, mimetype) => {
+    const save = async (uri, filename, mimetype) => {
         if (Platform.OS === "android") {
             const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
-            if (permissions.granted) {
-                // const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
-                // await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, filename, mimetype)
-                //     .then(async (uri) => {
 
-                //         await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 });
-                //     })
-                //     .catch(e => console.log(e));
-                const asset = await MediaLibrary.createAssetAsync(fileUri)
-                await MediaLibrary.createAlbumAsync("Download", asset, false)
+            if (permissions.granted) {
+
+
+                const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
+                await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, filename, mimetype)
+                    .then(async (uri) => {
+
+                        await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 });
+
+                        ToastAndroid.showWithGravity(
+                            'Downloaded',
+                            ToastAndroid.SHORT,
+                            ToastAndroid.CENTER,
+                        );
+                    })
+                    .catch(e => {
+
+                        console.log(e)
+                        ToastAndroid.showWithGravity(
+                            'pb',
+                            ToastAndroid.SHORT,
+                            ToastAndroid.CENTER,
+                        );
+                    })
 
             } else {
                 shareAsync(uri);
@@ -94,7 +121,6 @@ const WallDetails = ({ navigation }) => {
         }
 
     };
-
 
 
 
@@ -126,17 +152,20 @@ const WallDetails = ({ navigation }) => {
 
                 {/*  Button download*/}
                 <View style={styles.btnsContainer}>
+                    {/*   
                     <Button
                         pressHandler={downloadFromUrl}
                         stylesButton={styles.btnDownload}
                         Icon={<Ionicons name='ios-chevron-down' size={40} color={COLORS.white} />}
-                    />
+                    />*/}
+
+
 
                     {/*  Button set wallpaper*/}
                     <Button
-                        // pressHandler={setWallpaperfun}
+                        pressHandler={downloadFromUrl}
                         stylesText={styles.stylesText}
-                        title='SET AS'
+                        title='DOWNLOAD'
                         stylesButton={styles.btnSetAs}
                     />
 
@@ -150,7 +179,7 @@ const WallDetails = ({ navigation }) => {
                 </View>
             </ImageBackground>
 
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 

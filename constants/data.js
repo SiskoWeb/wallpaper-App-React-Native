@@ -1,32 +1,32 @@
 const nft01 = 'http://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D&w=1000&q=80';
 const nft011 = 'https://w0.peakpx.com/wallpaper/899/731/HD-wallpaper-anime-boys-anime-in-naruto-anime.jpg';
-import nft02 from "../assets/images/nft02.jpg";
-import nft03 from "../assets/images/nft03.jpg";
-import nft04 from "../assets/images/nft04.jpg";
-import nft05 from "../assets/images/nft05.jpg";
-import nft06 from "../assets/images/nft06.jpg";
-import nft07 from "../assets/images/nft07.jpg";
-import nft08 from "../assets/images/nft08.jpg";
-import nft09 from "../assets/images/nft09.jpg";
-import nft10 from "../assets/images/nft10.jpg";
-import nft11 from "../assets/images/nft11.jpg";
-import nft12 from "../assets/images/nft12.jpg";
+const nft02 = "https://e0.pxfuel.com/wallpapers/466/677/desktop-wallpaper-phone-japanese-style-neon-shallows-japan-phone-thumbnail.jpg";
+const nft03 = "https://marketplace.canva.com/EAFLLChnpe8/1/0/900w/canva-blue-white-aesthetic-quotes-phone-wallpaper-fw3-3A3krDc.jpg";
+const nft04 = "http://w.forfun.com/fetch/6e/6e1421cd689b16d5bff096c0240e94e1.jpeg";
+const nft05 = "http://wallpapercave.com/wp/wp5464324.jpg";
+const nft06 = "http://cdn.shopify.com/s/files/1/0182/4159/files/02_05_IGStory_UniversalLove.jpg?format=jpg";
+const nft07 = "https://media.istockphoto.com/id/1405528417/photo/abstract-gradient-fluid-shape-background-mobile-screen-ui-design-3d-illustration.jpg?b=1&s=170667a&w=0&k=20&c=jOyM5Nu-bUOn0fgx978GuNRJ9UM2nlFFmxx_8a9r4rw=";
+const nft08 = "https://i.pinimg.com/236x/5d/91/f6/5d91f60be92ff5bd9f916fc76ccba9a9.jpg";
+const nft09 = "http://cutewallpaper.org/25/android-material-wallpaper-colors/316691609.jpg";
+const nft10 = "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v535batch2-mynt-43.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=9f602de67a347b7c50ef8eeac3835189";
+const nft11 = "https://plus.unsplash.com/premium_photo-1666232903265-ba0419aa3ef7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80";
+const nft12 = "https://images.unsplash.com/photo-1611068813580-b07ef920964b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80";
 
 export const DATA = [
   {
     id: "1",
     name: "Cryptopunk #240",
-    image: nft01,
+    image: 'http://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D&w=1000&q=80',
   },
   {
     id: "2",
     name: "Great Ape #6494",
-    image: nft011,
+    image: 'https://images.unsplash.com/photo-1611068813580-b07ef920964b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
   },
   {
     id: "3",
     name: "Meebit #2325",
-    image: nft03,
+    image: 'http://cdn.shopify.com/s/files/1/0182/4159/files/02_05_IGStory_UniversalLove.jpg?format=jpg',
 
   },
   {

@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import ImageCard from '../components/Card';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '../components/Button';
+
 
 
 const Favourite = () => {
@@ -14,7 +14,6 @@ const Favourite = () => {
 
   const [wFavourite, setWDFavourite] = useState(FavouriteData); // Initialize with the complete data
   const [refreshing, setRefreshing] = useState(false);
-
 
 
   //when user refrech get data  again
