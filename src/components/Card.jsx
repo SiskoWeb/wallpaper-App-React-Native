@@ -35,13 +35,13 @@ const ImageCard = ({ item }) => {
                     <ActivityIndicator
                         size="large"
                         style={{ position: "absolute", zIndex: 2, left: 55 }}
-                        color="pink"
+                        color={COLORS.second}
                     />
                 ) : null}
 
                 <TouchableOpacity onPress={() => imageDetails()}>
                     <Image
-                        source={item.image}
+                        source={item.url}
 
                         style={{
                             width: width / 2 - 20,

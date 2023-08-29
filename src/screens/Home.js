@@ -1,52 +1,74 @@
 import { View, Text, StatusBar, StyleSheet, SafeAreaView, RefreshControl, FlatList, Dimensions } from 'react-native'
-import React, { useState } from 'react'
-
-import { COLORS, SIZES, FONTS, DATA } from '../../constants/'
+import React, { useEffect, useState } from 'react'
+import { COLORS, SIZES, FONTS } from '../../constants/'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import HomeHeader from '../components/HomeHeader';
-import { FlashList } from '@shopify/flash-list';
-import Card from '../components/Card';
 import ImageCard from '../components/Card';
-import Albums from '../../hooks/useScrollToTop'
 import { useDispatch, useSelector } from 'react-redux';
+
+
+
 const Home = () => {
 
+    const { wallpapers } = useSelector((state) => state.wallpaper); // get wallpapers from redux
 
-    const { wallpapers } = useSelector((state) => state.wallpaper);
-    const [wData, setWData] = useState(wallpapers); // Initialize with the complete data
     const [refreshing, setRefreshing] = useState(false);
-    const [visibleData, setVisibleData] = useState(wData.slice(0, initialLoadCount));
+    const [visibleData, setVisibleData] = useState(wallpapers.slice(0, initialLoadCount));
     const itemsPerPage = 10; // Number of items per "page"
     const initialLoadCount = 20; // Initial number of items to load
 
+
+
+
+
+
+    // when user rech 10 wallpapers this function rander or display more wallpapers
     const loadMoreData = () => {
         const startIndex = visibleData.length;
         const endIndex = startIndex + itemsPerPage;
-
-        if (endIndex <= wData.length) {
-            setVisibleData([...visibleData, ...wData.slice(startIndex, endIndex)]);
+        if (endIndex <= wallpapers.length) {
+            setVisibleData([...visibleData, ...wallpapers.slice(startIndex, endIndex)]);
         }
     };
+
+
+
+
+
+    useEffect(() => {
+        setVisibleData(wallpapers.slice(0, initialLoadCount))
+    }, [])
+
+
+
+
 
     const onRefresh = () => {
         setRefreshing(true);
-        setVisibleData(wData.slice(0, initialLoadCount)); // Refresh visible data
+        setVisibleData(wallpapers.slice(0, initialLoadCount)); // Refresh visible data
         setRefreshing(false);
     };
 
+
+
+
+
     const searchHandler = (value) => {
         if (value) {
-            const filteredData = DATA.filter((nft) =>
+            const filteredData = wallpapers.filter((nft) =>
                 nft.name.toLowerCase().includes(value.toLowerCase())
             );
-            setWData(filteredData);
+            // setWData(filteredData);
             setVisibleData(filteredData.slice(0, initialLoadCount)); // Update visible data when filtering
         } else {
-            setWData(DATA);
-            setVisibleData(DATA.slice(0, initialLoadCount)); // Update visible data when clearing search
+            // setWData(wallpapers);
+            setVisibleData(wallpapers.slice(0, initialLoadCount)); // Update visible data when clearing search
         }
     };
 
+
+
+    // componenet display when there is no wallpapers
     const NotFoundNFT = () => {
         return (
             <View style={styles.notFoundContainer}>
@@ -59,13 +81,11 @@ const Home = () => {
 
 
     return (
-
         <SafeAreaView style={{
             paddingVertical: StatusBar.currentHeight + 5,
             width: wp("100%"), height: hp("100%"),
             backgroundColor: COLORS.bg,
         }}>
-
 
             <View style={{ height: hp('8%'), }}>
                 <HomeHeader searchHandler={searchHandler} />

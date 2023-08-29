@@ -70,11 +70,11 @@ const WallDetails = ({ navigation }) => {
 
         const filename = `wallpaper${Math.random()}.jpg`;
         const result = await FileSystem.downloadAsync(
-            item.image,
+            item.url,
             FileSystem.documentDirectory + filename,
 
         );
-    
+
 
         await save(result.uri, filename, "Content-Type:image/*");
         setLoading(false)
@@ -107,7 +107,7 @@ const WallDetails = ({ navigation }) => {
 
                         console.log(e)
                         ToastAndroid.showWithGravity(
-                            'pb',
+                            'Problem',
                             ToastAndroid.SHORT,
                             ToastAndroid.CENTER,
                         );
@@ -131,14 +131,13 @@ const WallDetails = ({ navigation }) => {
                 <View className='z-50 flex-1 justify-center items-center bg-slate-500 opacity-70 w-full h-full absolute'>
                     <ActivityIndicator
                         size="large"
-
-                        color="blue"
+                        color={COLORS.second}
                     />
                     <Text>Loading...</Text>
                 </View>
             ) : null}
 
-            <ImageBackground source={{ uri: item.image, isStatic: true }} resizeMode="cover" style={styles.image}>
+            <ImageBackground source={{ uri: item.url, isStatic: true }} resizeMode="cover" style={styles.image}>
 
                 {/*  Button Back*/}
                 <View style={{ paddingTop: wp("5%"), paddingLeft: wp("2%") }}>
@@ -162,13 +161,20 @@ const WallDetails = ({ navigation }) => {
 
 
                     {/*  Button set wallpaper*/}
-                    <Button
-                        pressHandler={downloadFromUrl}
-                        stylesText={styles.stylesText}
-                        title='DOWNLOAD'
-                        stylesButton={styles.btnSetAs}
-                    />
 
+                    {item.premium ?
+
+                        <Button
+                            title='watch ads'
+                            stylesButton={styles.btnSetAs}
+                        />
+
+                        : <Button
+                            pressHandler={downloadFromUrl}
+                            stylesText={styles.stylesText}
+                            title='DOWNLOAD'
+                            stylesButton={styles.btnSetAs}
+                        />}
 
                     {/*  Button add to favorte*/}
                     <Button
@@ -176,6 +182,7 @@ const WallDetails = ({ navigation }) => {
                         stylesButton={styles.btnFavort}
                         Icon={<Ionicons name='ios-heart' size={40} color={isExist ? 'red' : 'grey'} />}
                     />
+
                 </View>
             </ImageBackground>
 
