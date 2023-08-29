@@ -1,9 +1,8 @@
 import { View, Text, StatusBar, StyleSheet, SafeAreaView, RefreshControl, FlatList, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { COLORS, SIZES, FONTS, DATA } from '../../constants/'
+import { COLORS, SIZES, FONTS } from '../../constants'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import ImageCard from '../components/Card';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -32,6 +31,8 @@ const Favourite = () => {
   }, [FavouriteData])
 
 
+
+  // componenet display when there is no wallpapers
   const NotFoundNFT = () => {
     return (
       <View style={styles.notFoundContainer}>

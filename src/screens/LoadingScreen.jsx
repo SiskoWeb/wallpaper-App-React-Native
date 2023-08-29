@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { View, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { getWallpapers, setFavourite, setWallpapers } from '../../redux/wallpaperSlice';
-import { COLORS, DATA } from '../../constants/'
+import { COLORS } from '../../constants'
 import RootNavigation from "../../Routes";
 import axios from 'axios';
 import { ActivityIndicator } from 'react-native';
@@ -19,20 +19,20 @@ export default function LoadingScreen() {
     const netInfo = useNetInfo(); // checker if internet exist
 
 
-
+    const apiUrl = process.env.WALLPAPER_API_URL;
 
 
     //fetch data fronm json file 
     const fetchWallpapers = async () => {
 
         try {
-            const response = await axios.get("https://drive.google.com/uc?export=download&id=1XcaBRG12025VyCTK657o3Hujd7wZQWBU")
-            console.log(response)
+            const response = await axios.get("https://raw.githubusercontent.com/sisko99/Ghofrane-Portfolio/main/wallpapers(5).json")
+            console.log(response.data)
             //after fetch data send it to redux
-            await dispatch(setWallpapers(response.data))
-
-            // await dispatch(getWallpapers())
+            dispatch(setWallpapers(response.data))
             setLoading(false)
+            // await dispatch(getWallpapers())
+
         } catch (error) {
             console.log(error)
             setErrorData(true)
@@ -47,7 +47,7 @@ export default function LoadingScreen() {
     // fet data
     useEffect(() => {
         /// check if internet exist if yes contune to fetch data 
-        if (netInfo.isConnected) fetchWallpapers()
+        fetchWallpapers()
 
     }, [])
 

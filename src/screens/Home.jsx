@@ -1,6 +1,6 @@
 import { View, Text, StatusBar, StyleSheet, SafeAreaView, RefreshControl, FlatList, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { COLORS, SIZES, FONTS } from '../../constants/'
+import { COLORS, SIZES, FONTS } from '../../constants'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import HomeHeader from '../components/HomeHeader';
 import ImageCard from '../components/Card';
@@ -13,9 +13,9 @@ const Home = () => {
     const { wallpapers } = useSelector((state) => state.wallpaper); // get wallpapers from redux
 
     const [refreshing, setRefreshing] = useState(false);
-    const [visibleData, setVisibleData] = useState(wallpapers.slice(0, initialLoadCount));
-    const itemsPerPage = 10; // Number of items per "page"
-    const initialLoadCount = 20; // Initial number of items to load
+    const [visibleData, setVisibleData] = useState(wallpapers);
+    const itemsPerPage = 5; // Number of items per "page"
+    const initialLoadCount = 10; // Initial number of items to load
 
 
 
@@ -106,14 +106,13 @@ const Home = () => {
                     data={visibleData}
                     keyExtractor={(item) => item.id}
                     numColumns={2}
-                    showsVerticalScrollIndicator={false}
+                    showsVerticalScrollIndicator={true}
                     style={{ alignSelf: "stretch" }}
                     contentContainerStyle={{
                         flexDirection: "column",
                         maxWidth: "100%",
                         justifyContent: "space-between",
                     }}
-                    initialNumToRender={5}
                     onEndReached={loadMoreData}
                     renderItem={({ item, index }) => {
                         return <ImageCard key={index} item={item} />;

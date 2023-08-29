@@ -1,9 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./src/screens/Home";
-import WallDetails from "./src/screens/WallDetails";
 // react-native-vector-icons/Ionicons otherwise.
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { COLORS, SIZES, FONTS, DATA } from './constants/'
+import { COLORS } from './constants/'
 import Favourite from "./src/screens/Favourite";
 
 

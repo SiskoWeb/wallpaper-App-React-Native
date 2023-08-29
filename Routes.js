@@ -6,8 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import TabNavigator from "./TabNavigation";
 import WallDetails from "./src/screens/WallDetails";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
+
 
 
 const Stack = createNativeStackNavigator();

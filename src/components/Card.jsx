@@ -3,12 +3,15 @@ import React, { useState } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 import { Image } from 'expo-image';
-// import { Image } from 'expo-image';
+import { COLORS } from '../../constants';
+
 const ImageCard = ({ item }) => {
+
 
     const [loading, setLoading] = useState(true);
     const { width, height } = Dimensions.get("window");
     const navigation = useNavigation();
+
 
     const imageDetails = () => {
         navigation.navigate("Display", { item });

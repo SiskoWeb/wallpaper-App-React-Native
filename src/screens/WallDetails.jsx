@@ -1,6 +1,6 @@
 import { View, Text, ToastAndroid, StyleSheet, SafeAreaView, PermissionsAndroid, CameraRoll } from 'react-native'
 import React, { useState, useRef, useEffect } from 'react'
-import { COLORS, SIZES, FONTS, DATA } from '../../constants/'
+import { COLORS, SIZES } from '../../constants'
 import * as FileSystem from 'expo-file-system';
 import { ImageBackground } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -10,9 +10,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { deleteFromFavourite, setFavourite } from '../../redux/wallpaperSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { shareAsync } from 'expo-sharing';
-import * as MediaLibrary from "expo-media-library";
 import { ActivityIndicator } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const WallDetails = ({ navigation }) => {
@@ -22,11 +20,12 @@ const WallDetails = ({ navigation }) => {
 
     const dispatch = useDispatch()
     const FavouriteData = useSelector((state) => state.wallpaper.Favourite);
-
     const [loading, setLoading] = useState(false);
+
     {/* get data passed from route  */ }
     const route = useRoute();
     const item = route.params.item;
+
     // check if this wallpaper already in favourte
     const [isExist, setIsExist] = useState(FavouriteData.some(obj =>
         obj.id === item.id
@@ -34,10 +33,9 @@ const WallDetails = ({ navigation }) => {
 
 
 
+
     // add wallpaper to favorate page
     const setToFavorte = async () => {
-
-
 
         //if wall not exist in favoute add it using redux
         if (!isExist) {
@@ -50,6 +48,7 @@ const WallDetails = ({ navigation }) => {
                 ToastAndroid.CENTER,
             )
         }
+
         //if wall  exist in favoute remove it using redux
         else {
             dispatch(deleteFromFavourite(item))
@@ -60,21 +59,21 @@ const WallDetails = ({ navigation }) => {
                 ToastAndroid.CENTER,
             );
         }
-
     }
+
+
+
 
 
 
     const downloadFromUrl = async () => {
         setLoading(true)
-
         const filename = `wallpaper${Math.random()}.jpg`;
         const result = await FileSystem.downloadAsync(
             item.url,
             FileSystem.documentDirectory + filename,
 
         );
-
 
         await save(result.uri, filename, "Content-Type:image/*");
         setLoading(false)
@@ -83,14 +82,12 @@ const WallDetails = ({ navigation }) => {
 
 
 
-
+    // save image to divice
     const save = async (uri, filename, mimetype) => {
         if (Platform.OS === "android") {
             const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
 
             if (permissions.granted) {
-
-
                 const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
                 await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, filename, mimetype)
                     .then(async (uri) => {
@@ -151,14 +148,6 @@ const WallDetails = ({ navigation }) => {
 
                 {/*  Button download*/}
                 <View style={styles.btnsContainer}>
-                    {/*   
-                    <Button
-                        pressHandler={downloadFromUrl}
-                        stylesButton={styles.btnDownload}
-                        Icon={<Ionicons name='ios-chevron-down' size={40} color={COLORS.white} />}
-                    />*/}
-
-
 
                     {/*  Button set wallpaper*/}
 
@@ -185,8 +174,7 @@ const WallDetails = ({ navigation }) => {
 
                 </View>
             </ImageBackground>
-
-        </SafeAreaView >
+        </SafeAreaView>
     )
 }
 
@@ -197,7 +185,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.white,
-        // paddingTop: StatusBar.currentHeight,
+
 
     }, image: {
         flex: 1,
