@@ -7,7 +7,7 @@ import RootNavigation from "../../Routes";
 import axios from 'axios';
 import { ActivityIndicator } from 'react-native';
 import { useNetInfo } from "@react-native-community/netinfo";
-
+import { API_URL } from "@env"
 
 
 export default function LoadingScreen() {
@@ -19,19 +19,19 @@ export default function LoadingScreen() {
     const netInfo = useNetInfo(); // checker if internet exist
 
 
-    const apiUrl = process.env.WALLPAPER_API_URL;
+
 
 
     //fetch data fronm json file 
     const fetchWallpapers = async () => {
 
         try {
-            const response = await axios.get("https://raw.githubusercontent.com/sisko99/Ghofrane-Portfolio/main/wallpapers(5).json")
-            console.log(response.data)
+            const response = await axios.get(API_URL)
+
             //after fetch data send it to redux
             dispatch(setWallpapers(response.data))
             setLoading(false)
-            // await dispatch(getWallpapers())
+
 
         } catch (error) {
             console.log(error)

@@ -11,17 +11,19 @@ import { deleteFromFavourite, setFavourite } from '../../redux/wallpaperSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { shareAsync } from 'expo-sharing';
 import { ActivityIndicator } from 'react-native';
+import rewardedAds from '../../hooks/useRewardedAds';
+import interstitialAd from '../../hooks/useInterstitialAds';
+import rewardedAdsAds from '../../hooks/useRewardedAds';
+
 
 
 const WallDetails = ({ navigation }) => {
-
-
-
+    const { isLoadedInterstitialAd, isClosedInterstitialAd, loadInterstitialAd, showInterstitialAd } = interstitialAd()
+    const { isLoadedRewardedAds, isClosedRewardedAds, loadRewardedAds, showRewardedAds, reward } = rewardedAdsAds()
 
     const dispatch = useDispatch()
     const FavouriteData = useSelector((state) => state.wallpaper.Favourite);
-    const [loading, setLoading] = useState(false);
-
+    const [loadingScreen, setLoadingScreen] = useState(false);
     {/* get data passed from route  */ }
     const route = useRoute();
     const item = route.params.item;
@@ -62,21 +64,30 @@ const WallDetails = ({ navigation }) => {
     }
 
 
+    const unlockDownloadBtn = () => {
+        showRewardedAds()
 
+    }
 
 
 
     const downloadFromUrl = async () => {
-        setLoading(true)
+
+
+        setLoadingScreen(true)
         const filename = `wallpaper${Math.random()}.jpg`;
         const result = await FileSystem.downloadAsync(
             item.url,
             FileSystem.documentDirectory + filename,
 
         );
-
+        ToastAndroid.showWithGravity(
+            'ads Appear After Download',
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER,
+        );
         await save(result.uri, filename, "Content-Type:image/*");
-        setLoading(false)
+        setLoadingScreen(false)
     };
 
 
@@ -95,10 +106,22 @@ const WallDetails = ({ navigation }) => {
                         await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 });
 
                         ToastAndroid.showWithGravity(
-                            'Downloaded',
+                            'ads appear now',
                             ToastAndroid.SHORT,
                             ToastAndroid.CENTER,
                         );
+                        if (isLoadedInterstitialAd) {
+                            showInterstitialAd()
+                        } else {
+
+                            ToastAndroid.showWithGravity(
+                                'There is pb in ads',
+                                ToastAndroid.SHORT,
+                                ToastAndroid.CENTER,
+                            );
+                        }
+
+                       
                     })
                     .catch(e => {
 
@@ -124,15 +147,26 @@ const WallDetails = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}  >
 
-            {loading ? (
-                <View className='z-50 flex-1 justify-center items-center bg-slate-500 opacity-70 w-full h-full absolute'>
+            {loadingScreen ?
+                <View style={{
+                    flex: 1,
+                    backgroundColor: COLORS.bg,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'absolute',
+                    height: "100%",
+                    width: "100%",
+                    zIndex: 2,
+                    opacity: 0.5
+                }}>
                     <ActivityIndicator
                         size="large"
+
                         color={COLORS.second}
                     />
-                    <Text>Loading...</Text>
+                    <Text style={{ color: 'white' }}>Loading Data...</Text>
                 </View>
-            ) : null}
+                : null}
 
             <ImageBackground source={{ uri: item.url, isStatic: true }} resizeMode="cover" style={styles.image}>
 
@@ -154,6 +188,7 @@ const WallDetails = ({ navigation }) => {
                     {item.premium ?
 
                         <Button
+                            pressHandler={unlockDownloadBtn}
                             title='watch ads'
                             stylesButton={styles.btnSetAs}
                         />
