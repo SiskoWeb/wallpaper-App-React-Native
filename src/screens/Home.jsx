@@ -56,7 +56,7 @@ const Home = () => {
             ToastAndroid.CENTER,
         )
         setTimeout(() => {
-            // appOpenAd.show();
+            appOpenAd.show();
 
         }, 2500)
 
@@ -143,14 +143,17 @@ const Home = () => {
                         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                     }
                 />}
-
-                <BannerAd
-                    unitId={adUnitId}
-                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                    requestOptions={{
-                        requestNonPersonalizedAdsOnly: true,
-                    }}
-                />
+                <View
+                    style={{ backgroundColor: "white", height: "auto", width: "auto" }}
+                >
+                    <BannerAd
+                        unitId={adUnitId}
+                        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                        requestOptions={{
+                            requestNonPersonalizedAdsOnly: true,
+                        }}
+                    />
+                </View>
 
             </View>
 

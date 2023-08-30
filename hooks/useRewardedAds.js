@@ -4,7 +4,7 @@ import { useRewardedAd, TestIds } from 'react-native-google-mobile-ads';
 
 function rewardedAdsAds() {
 
-    const { isLoaded: isLoadedRewardedAds, isClosed: isClosedRewardedAds, load: loadRewardedAds, show: showRewardedAds, reward } = useRewardedAd(TestIds.REWARDED, {
+    const { isLoaded: isLoadedRewardedAds, isEarnedReward,isClosed: isClosedRewardedAds, load: loadRewardedAds, show: showRewardedAds, reward } = useRewardedAd(TestIds.REWARDED, {
         requestNonPersonalizedAdsOnly: true,
     });
 
@@ -13,7 +13,7 @@ function rewardedAdsAds() {
         loadRewardedAds();
     }, [loadRewardedAds]);
 
-    return { isLoadedRewardedAds, isClosedRewardedAds, loadRewardedAds, showRewardedAds, reward }
+    return { isLoadedRewardedAds,isEarnedReward, isClosedRewardedAds, loadRewardedAds, showRewardedAds, reward }
 }
 
 export default rewardedAdsAds

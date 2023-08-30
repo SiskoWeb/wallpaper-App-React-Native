@@ -1,5 +1,5 @@
-import { View, Text, ToastAndroid, StyleSheet, SafeAreaView, PermissionsAndroid, CameraRoll } from 'react-native'
-import React, { useState, useRef, useEffect } from 'react'
+import { View, Text, ToastAndroid, StyleSheet, SafeAreaView } from 'react-native'
+import React, { useState, } from 'react'
 import { COLORS, SIZES } from '../../constants'
 import * as FileSystem from 'expo-file-system';
 import { ImageBackground } from 'react-native'
@@ -11,7 +11,6 @@ import { deleteFromFavourite, setFavourite } from '../../redux/wallpaperSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { shareAsync } from 'expo-sharing';
 import { ActivityIndicator } from 'react-native';
-import rewardedAds from '../../hooks/useRewardedAds';
 import interstitialAd from '../../hooks/useInterstitialAds';
 import rewardedAdsAds from '../../hooks/useRewardedAds';
 
@@ -19,7 +18,7 @@ import rewardedAdsAds from '../../hooks/useRewardedAds';
 
 const WallDetails = ({ navigation }) => {
     const { isLoadedInterstitialAd, isClosedInterstitialAd, loadInterstitialAd, showInterstitialAd } = interstitialAd()
-    const { isLoadedRewardedAds, isClosedRewardedAds, loadRewardedAds, showRewardedAds, reward } = rewardedAdsAds()
+    const { isLoadedRewardedAds, isEarnedReward, isClosedRewardedAds, loadRewardedAds, showRewardedAds, reward } = rewardedAdsAds()
 
     const dispatch = useDispatch()
     const FavouriteData = useSelector((state) => state.wallpaper.Favourite);
@@ -62,15 +61,32 @@ const WallDetails = ({ navigation }) => {
             );
         }
     }
+    useEffect(() => {
+
+
+        if (isEarnedReward) {
+            item.premium = true
+        }
+    }, [isEarnedReward]);
 
 
     const unlockDownloadBtn = () => {
-        showRewardedAds()
+        if (isLoadedRewardedAds) {
+            showRewardedAds()
+        }
+        else {
+            ToastAndroid.showWithGravity(
+                'RewardedAds is not load yet try again',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+            );
+        }
 
     }
 
-
-
+    console.log(isEarnedReward)
+    console.log('hola')
+    console.log(reward)
     const downloadFromUrl = async () => {
 
 
@@ -121,7 +137,7 @@ const WallDetails = ({ navigation }) => {
                             );
                         }
 
-                       
+
                     })
                     .catch(e => {
 
