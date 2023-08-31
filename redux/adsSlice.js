@@ -8,9 +8,10 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initialState = {
-    bannerID: 'ca-app-pub-3940256099942544/6300978111',
-    interstitialID: '',
-    rewardedID: '',
+    "Banner": "",
+    "AppOpen": "",
+    "Interstitial": "",
+    "Rewarded": ""
 
 }
 
@@ -21,9 +22,10 @@ const adsSlice = createSlice({
 
     reducers: {
         setIds(state, action) {
-            state.bannerID = action.payload.banner
-            state.interstitialID = action.payload.interstitial
-            state.rewardedID = action.payload.rewarded
+            state.Banner = action.payload.Banner
+            state.AppOpen = action.payload.AppOpen
+            state.Interstitial = action.payload.Interstitial
+            state.Rewarded = action.payload.Rewarded
         },
 
 
@@ -32,6 +34,6 @@ const adsSlice = createSlice({
 
 })
 // Action creators are generated for each case reducer function
-export const { setFavourite, setWallpapers, deleteFromFavourite } = adsSlice.actions
+export const { setIds } = adsSlice.actions
 
 export default adsSlice.reducer

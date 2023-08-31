@@ -9,15 +9,15 @@ import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
 import { AppOpenAd, AdEventType } from 'react-native-google-mobile-ads';
 import { ToastAndroid } from 'react-native';
 
-const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-3940256099942544/6300978111';
-const adUnitIdOpenAds = __DEV__ ? TestIds.APP_OPEN : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
 
-const appOpenAd = AppOpenAd.createForAdRequest(adUnitIdOpenAds, {
-    requestNonPersonalizedAdsOnly: true,
-    keywords: ['fashion', 'clothing'],
-});
+
 
 const Home = () => {
+    const { Banner, AppOpen } = useSelector((state) => state.ads); // get wallpapers from redux
+
+    
+    const adUnitId = Banner || 'ca-app-pub-3940256099942544/6300978111';
+    const adUnitIdOpenAds = AppOpen || 'ca-app-pub-3940256099942544/3419835294';
 
     const { wallpapers } = useSelector((state) => state.wallpaper); // get wallpapers from redux
 
@@ -28,7 +28,11 @@ const Home = () => {
 
 
 
-
+    const appOpenAd = AppOpenAd.createForAdRequest(adUnitIdOpenAds, {
+        requestNonPersonalizedAdsOnly: true,
+        keywords: ['fashion', 'clothing'],
+    });
+    
 
 
     // when user rech 10 wallpapers this function rander or display more wallpapers
@@ -46,9 +50,10 @@ const Home = () => {
 
 
     useEffect(() => {
+        appOpenAd.load(); ``
         setVisibleData(wallpapers.slice(0, initialLoadCount))
 
-        appOpenAd.load();
+
 
         ToastAndroid.showWithGravity(
             'ad appear soon',
@@ -56,7 +61,15 @@ const Home = () => {
             ToastAndroid.CENTER,
         )
         setTimeout(() => {
-            appOpenAd.show();
+            //check if ads load
+            if (appOpenAd.loaded) {
+                appOpenAd.show();
+            }
+            ToastAndroid.showWithGravity(
+                'ad dosnt load',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+            )
 
         }, 2500)
 
@@ -107,6 +120,7 @@ const Home = () => {
             paddingVertical: StatusBar.currentHeight + 5,
             width: wp("100%"), height: hp("100%"),
             backgroundColor: COLORS.bg,
+            position: 'relative'
         }}>
 
             <View style={{ height: hp('8%'), }}>
@@ -144,7 +158,7 @@ const Home = () => {
                     }
                 />}
                 <View
-                    style={{ backgroundColor: "white", height: "auto", width: "auto" }}
+                    style={{ backgroundColor: "white", height: "auto", width: "auto", position: 'absolute', bottom: 0 }}
                 >
                     <BannerAd
                         unitId={adUnitId}

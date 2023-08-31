@@ -1,5 +1,5 @@
 import { View, Text, ToastAndroid, StyleSheet, SafeAreaView } from 'react-native'
-import React, { useState, } from 'react'
+import React, { useEffect, useState, } from 'react'
 import { COLORS, SIZES } from '../../constants'
 import * as FileSystem from 'expo-file-system';
 import { ImageBackground } from 'react-native'
@@ -17,6 +17,7 @@ import rewardedAdsAds from '../../hooks/useRewardedAds';
 
 
 const WallDetails = ({ navigation }) => {
+
     const { isLoadedInterstitialAd, isClosedInterstitialAd, loadInterstitialAd, showInterstitialAd } = interstitialAd()
     const { isLoadedRewardedAds, isEarnedReward, isClosedRewardedAds, loadRewardedAds, showRewardedAds, reward } = rewardedAdsAds()
 
@@ -32,6 +33,7 @@ const WallDetails = ({ navigation }) => {
         obj.id === item.id
     ));
 
+    const [isPremium, setIsPremium] = useState(item.premium)
 
 
 
@@ -61,22 +63,32 @@ const WallDetails = ({ navigation }) => {
             );
         }
     }
+
+
+    //bthis work when user watch rewerded ads  sowe make wallpaper diownloadeble
     useEffect(() => {
-
-
         if (isEarnedReward) {
-            item.premium = true
+            item.premium = false
+            setIsPremium(false)
+            ToastAndroid.showWithGravity(
+                'Download unlocked',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+            );
         }
-    }, [isEarnedReward]);
+
+    }, [isEarnedReward])
 
 
+    //btn to unlock wallpaper by watching rewarded ad
     const unlockDownloadBtn = () => {
+        console.log(isLoadedRewardedAds)
         if (isLoadedRewardedAds) {
             showRewardedAds()
         }
         else {
             ToastAndroid.showWithGravity(
-                'RewardedAds is not load yet try again',
+                'ad is not load yet try again',
                 ToastAndroid.SHORT,
                 ToastAndroid.CENTER,
             );
@@ -84,11 +96,8 @@ const WallDetails = ({ navigation }) => {
 
     }
 
-    console.log(isEarnedReward)
-    console.log('hola')
-    console.log(reward)
-    const downloadFromUrl = async () => {
 
+    const downloadFromUrl = async () => {
 
         setLoadingScreen(true)
         const filename = `wallpaper${Math.random()}.jpg`;
@@ -122,7 +131,7 @@ const WallDetails = ({ navigation }) => {
                         await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 });
 
                         ToastAndroid.showWithGravity(
-                            'ads appear now',
+                            'loading ads',
                             ToastAndroid.SHORT,
                             ToastAndroid.CENTER,
                         );
@@ -131,7 +140,7 @@ const WallDetails = ({ navigation }) => {
                         } else {
 
                             ToastAndroid.showWithGravity(
-                                'There is pb in ads',
+                                'full ads wont load',
                                 ToastAndroid.SHORT,
                                 ToastAndroid.CENTER,
                             );
@@ -201,7 +210,7 @@ const WallDetails = ({ navigation }) => {
 
                     {/*  Button set wallpaper*/}
 
-                    {item.premium ?
+                    {isPremium ?
 
                         <Button
                             pressHandler={unlockDownloadBtn}

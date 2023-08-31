@@ -1,10 +1,15 @@
 import { useEffect } from 'react';
 import { useInterstitialAd, TestIds } from 'react-native-google-mobile-ads';
+import { useSelector } from 'react-redux';
 
 
 function InterstitialAdAd() {
 
-    const { isLoaded: isLoadedInterstitialAd, isClosed: isClosedInterstitialAd, load: loadInterstitialAd, show: showInterstitialAd } = useInterstitialAd(TestIds.INTERSTITIAL, {
+    const { Interstitial } = useSelector((state) => state.ads); // get wallpapers from redux
+
+
+    const adUnitId = Interstitial || 'ca-app-pub-3940256099942544/1033173712';
+    const { isLoaded: isLoadedInterstitialAd, isClosed: isClosedInterstitialAd, load: loadInterstitialAd, show: showInterstitialAd } = useInterstitialAd(adUnitId, {
         requestNonPersonalizedAdsOnly: true,
     });
 

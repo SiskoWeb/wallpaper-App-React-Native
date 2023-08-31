@@ -8,6 +8,7 @@ import axios from 'axios';
 import { ActivityIndicator } from 'react-native';
 import { useNetInfo } from "@react-native-community/netinfo";
 import { API_URL } from "@env"
+import { setIds } from '../../redux/adsSlice';
 
 
 export default function LoadingScreen() {
@@ -27,9 +28,10 @@ export default function LoadingScreen() {
 
         try {
             const response = await axios.get(API_URL)
-
+            console.log(response.data.ads)
             //after fetch data send it to redux
-            dispatch(setWallpapers(response.data))
+            dispatch(setWallpapers(response.data.wallpapers))
+            dispatch(setIds(response.data.ads))
             setLoading(false)
 
 
