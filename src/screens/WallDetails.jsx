@@ -13,6 +13,7 @@ import { shareAsync } from 'expo-sharing';
 import { ActivityIndicator } from 'react-native';
 import interstitialAd from '../../hooks/useInterstitialAds';
 import rewardedAdsAds from '../../hooks/useRewardedAds';
+import { StatusBar } from 'react-native';
 
 
 
@@ -245,6 +246,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.white,
+
 
 
     }, image: {

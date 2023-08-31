@@ -15,7 +15,7 @@ import { ToastAndroid } from 'react-native';
 const Home = () => {
     const { Banner, AppOpen } = useSelector((state) => state.ads); // get wallpapers from redux
 
-    
+
     const adUnitId = Banner || 'ca-app-pub-3940256099942544/6300978111';
     const adUnitIdOpenAds = AppOpen || 'ca-app-pub-3940256099942544/3419835294';
 
@@ -32,7 +32,7 @@ const Home = () => {
         requestNonPersonalizedAdsOnly: true,
         keywords: ['fashion', 'clothing'],
     });
-    
+
 
 
     // when user rech 10 wallpapers this function rander or display more wallpapers
@@ -73,7 +73,7 @@ const Home = () => {
 
         }, 2500)
 
-    }, [])
+    }, [appOpenAd.loaded])
 
 
 
@@ -117,13 +117,13 @@ const Home = () => {
 
     return (
         <SafeAreaView style={{
-            paddingVertical: StatusBar.currentHeight + 5,
-            width: wp("100%"), height: hp("100%"),
+            paddingVertical: StatusBar.currentHeight + 8,
+            width: wp("100%"), height: "100%",
             backgroundColor: COLORS.bg,
-            position: 'relative'
+
         }}>
 
-            <View style={{ height: hp('8%'), }}>
+            <View style={{ height: hp('8%'), paddingHorizontal: wp("3%") }}>
                 <HomeHeader searchHandler={searchHandler} />
             </View>
 
@@ -131,7 +131,7 @@ const Home = () => {
 
 
             <View style={{
-                height: hp("100%"),
+                height: hp('88%'),
                 width: wp("100%"),
                 marginBottom: hp("2%"),
                 flex: 1,
@@ -157,21 +157,21 @@ const Home = () => {
                         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                     }
                 />}
-                <View
-                    style={{ backgroundColor: "white", height: "auto", width: "auto", position: 'absolute', bottom: 0 }}
-                >
-                    <BannerAd
-                        unitId={adUnitId}
-                        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                        requestOptions={{
-                            requestNonPersonalizedAdsOnly: true,
-                        }}
-                    />
-                </View>
+
 
             </View>
 
-
+            <View
+                style={{ height: hp('12%'), width: "100%", }}
+            >
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true,
+                    }}
+                />
+            </View>
 
 
         </SafeAreaView>
